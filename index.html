@@ -70,9 +70,15 @@
             vertical-align: middle;
         }
 
-        .status{
+        .status {
             margin: auto;
             align-items: center;
+        }
+
+        .game_out_container {
+            margin: auto;
+            align-items: center;
+            text-align: center;
         }
     </style>
 </head>
@@ -89,7 +95,7 @@
                 </td>
             </tr>
         </table>
-        <br/><br/>
+        <br /><br />
         <table class="board">
             <tr>
                 <td class="tlc" id="1" onclick="onAction(1)"></td>
@@ -107,21 +113,67 @@
                 <td class="brc" id="9" onclick="onAction(9)"></td>
             </tr>
         </table>
+        <br>
+        <br>
+        <div class="game_out_container">
+        <h1 id="gameStatus">
+        </h1>
+        <button onclick="reStart()">Restart </button>
+        </div>
     </div>
     <script>
         currPlayer = 1
         function onAction(id) {
             td = document.getElementById(id)
+            p1Status = document.getElementById('p1-status')
+            p2Status = document.getElementById('p2-status')
             if (currPlayer == 1) {
                 td.innerHTML = '<h1 class="target-O">O</h1>'
                 currPlayer = 2
+                p1Status.className = 'player-inactive'
+                p2Status.className = 'player-active'
             } else {
                 td.innerHTML = '<h1 class="target-X">X</h1>'
                 currPlayer = 1
+                p1Status.className = 'player-active'
+                p2Status.className = 'player-inactive'
             }
+            validate()
             td.onclick = null
+        }
+        function validate() {
+            space = []
+            for (i = 1; i < 10; i++) {
+                space.push(document.getElementById('' + i).innerText)
+            }
+
+            if (space[0] + space[1] + space[2] == 'XXX'
+                | space[3] + space[4] + space[5] == 'XXX'
+                | space[6] + space[7] + space[8] == 'XXX'
+                | space[0] + space[3] + space[6] == 'XXX'
+                | space[1] + space[4] + space[7] == 'XXX'
+                | space[2] + space[5] + space[8] == 'XXX'
+                | space[0] + space[4] + space[8] == 'XXX'
+                | space[2] + space[4] + space[6] == 'XXX') {
+                document.getElementById('gameStatus').innerHTML = "Player 'X' Won!"
+            } else if (space[0] + space[1] + space[2] == 'OOO'
+                | space[3] + space[4] + space[5] == 'OOO'
+                | space[6] + space[7] + space[8] == 'OOO'
+                | space[0] + space[3] + space[6] == 'OOO'
+                | space[1] + space[4] + space[7] == 'OOO'
+                | space[2] + space[5] + space[8] == 'OOO'
+                | space[0] + space[4] + space[8] == 'OOO'
+                | space[2] + space[4] + space[6] == 'OOO') {
+                document.getElementById('gameStatus').innerHTML = "Player 'O' Won!"
+            } else if (!space.includes('')){
+                document.getElementById('gameStatus').innerHTML = "Its a DRAW"
+            }
+
+        }
+        function reStart(){
+            location.reload();
+
         }
     </script>
 </body>
-
 </html>

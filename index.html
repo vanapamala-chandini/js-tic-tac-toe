@@ -80,11 +80,20 @@
             align-items: center;
             text-align: center;
         }
+
+        .restart {
+            background-color:indianred;
+            color: white;
+            border: none;
+            padding: 0.75em 0.75em;
+            font-size: 1em;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
+        <h1 style="text-align: center; color: blue;" >TICTACTOE</h1>
         <table class="status">
             <tr>
                 <td id="p1-status" class="player-active">
@@ -118,7 +127,7 @@
         <div class="game_out_container">
         <h1 id="gameStatus">
         </h1>
-        <button onclick="reStart()">Restart </button>
+        <button class="restart" onclick="reStart()">Restart </button>
         </div>
     </div>
     <script>
